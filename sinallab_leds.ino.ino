@@ -1,7 +1,7 @@
 /* ============================================================================
    TRAMPOLINE - RTOS_leds.ino — recebe comandos do bridge.js via Serial
    Protocolo:  "LED:<Lx>:<0|1>\n"   ex.:  LED:L1:1\n
-   Pinos:      L1=D8  L2=D9  L3=D10  L4=D11  L5=D12
+   Pinos:      L1=D8  L2=D9  L3=D10  L4=D11  L5=D6
    ============================================================================ */
 
 const uint8_t LEDS[5] = {8, 9, 10, 11, 6};   // D8..D12
