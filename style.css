@@ -1,0 +1,377 @@
+/* ============================================================================
+   style.css — SINALLAB · AUTOSAR Classic (simulado)
+   Cobre: shell, header, controles, velocímetro, telemetria, tracklines,
+          footer, botão flutuante serial e responsivo.
+   ============================================================================ */
+
+/* ---------- Tokens ---------- */
+:root {
+  --bg:           #eef1f6;
+  --surface:      #ffffff;
+  --surface-soft: #f7f8fb;
+  --surface-2:    #eceff5;
+  --text:         #1a1a1a;
+  --text-soft:    #666666;
+  --text-faint:   #888888;
+  --border:       #e5e7eb;
+  --track-off:    #d1d5db;
+  --track-bg:     #eef0f4;
+
+  --primary:      #0b5fff;
+  --danger:       #e74c3c;
+  --ok:           #00b894;
+  --warn:         #f39c12;
+
+  --shadow-card:  0 2px 12px rgba(0, 0, 0, .06);
+  --shadow-pulse: 0 2px 14px rgba(11, 95, 255, .18);
+  --shadow-float: 0 6px 20px rgba(0, 0, 0, .15);
+
+  --radius:       12px;
+  --radius-lg:    16px;
+  --radius-sm:    8px;
+
+  --font:         system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono:         ui-monospace, "SF Mono", Consolas, monospace;
+}
+
+/* ---------- Reset mínimo ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================ Shell */
+.sinallab {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 20px;
+  background: var(--surface-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, .06);
+}
+
+/* ============================================================ Header */
+.sinallab__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.sinallab__title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.sinallab__subtitle {
+  margin: 4px 0 0;
+  color: var(--text-soft);
+  font-size: 13px;
+}
+
+/* ============================================================ Botões */
+.btn {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 0;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: filter .12s, transform .12s, background .12s, color .12s;
+}
+.btn:hover    { filter: brightness(1.06); }
+.btn:active   { transform: translateY(1px); }
+.btn:disabled { filter: grayscale(1); opacity: .6; cursor: not-allowed; }
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.btn--primary { background: var(--primary); color: #fff; }
+.btn--danger  { background: var(--danger);  color: #fff; }
+.btn--ghost   { background: #fff; color: #333; border: 1px solid var(--border); }
+.btn--preset  { background: #fff; color: #333; border: 1px solid var(--border); padding: 6px 10px; font-size: 13px; }
+.btn--preset.is-active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================ Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (max-width: 820px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================ Velocímetro */
+.speed-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+.speed-card__title {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.speed-card__gauge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.speed-card__gauge canvas {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  display: block;
+}
+.speed-card__readout {
+  position: absolute;
+  inset: auto 0 14%;
+  text-align: center;
+  pointer-events: none;
+}
+.speed-card__kmh {
+  font: 800 34px/1 var(--font);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+.speed-card__unit {
+  display: block;
+  font-size: 12px;
+  letter-spacing: .1em;
+  color: var(--text-faint);
+  margin-top: 2px;
+}
+
+/* ============================================================ Controles de velocidade */
+.speed-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.speed-input {
+  width: 100%;
+  accent-color: var(--primary);
+}
+.speed-buttons {
+  display: flex;
+  gap: 6px;
+}
+.speed-buttons .btn { flex: 1; }
+.speed-presets {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+}
+
+/* ============================================================ Telemetria */
+.telemetry {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+.telemetry__item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.telemetry__label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-faint);
+  margin-bottom: 4px;
+}
+.telemetry__value {
+  display: block;
+  font: 700 18px/1 var(--mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* ============================================================ Tracklines */
+.tracklines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trackline {
+  display: grid;
+  grid-template-columns: 14px 1fr auto auto;
+  grid-template-areas:
+    "dot name period count"
+    "bar bar  bar    bar";
+  align-items: center;
+  gap: 8px 14px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--track-off);
+  border-radius: 10px;
+  transition: border-color .12s, box-shadow .12s, transform .12s;
+}
+
+.trackline__dot {
+  grid-area: dot;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--track-off);
+  transition: background .12s, box-shadow .12s;
+}
+.trackline__name {
+  grid-area: name;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.trackline__name strong {
+  font-weight: 600;
+  font-size: 14px;
+}
+.trackline__name span {
+  font-size: 12px;
+  color: var(--text-faint);
+  font-family: var(--mono);
+}
+.trackline__period {
+  grid-area: period;
+  font-size: 12px;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+.trackline__count {
+  grid-area: count;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  min-width: 64px;
+  text-align: right;
+  color: #333;
+}
+.trackline__bar {
+  grid-area: bar;
+  height: 4px;
+  background: var(--track-bg);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.trackline__fill {
+  height: 100%;
+  width: 0%;
+  background: var(--color, var(--primary));
+  transition: width .05s linear;
+}
+
+/* Estado ativo — a `--color` vem inline (por trackline) */
+.trackline.active {
+  border-left-color: var(--color, var(--primary));
+  box-shadow: var(--shadow-pulse);
+}
+.trackline.active .trackline__dot {
+  background: var(--color, var(--primary));
+  box-shadow: 0 0 0 4px rgba(11, 95, 255, .2);
+}
+.trackline.active .trackline__count {
+  color: var(--color, var(--primary));
+}
+
+/* ============================================================ Footer */
+.sinallab__footer {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+.sinallab__footer strong { color: var(--text); }
+
+/* ============================================================ Botão flutuante serial (main.js) */
+#btn-serial {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 9999;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 0;
+  cursor: pointer;
+  background: var(--primary);
+  color: #fff;
+  font: 600 14px var(--font);
+  box-shadow: var(--shadow-float);
+  transition: background .15s, filter .15s, transform .15s;
+}
+#btn-serial:hover    { filter: brightness(1.06); }
+#btn-serial:active   { transform: translateY(1px); }
+#btn-serial:disabled { background: #999; cursor: not-allowed; filter: none; }
+#btn-serial:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(11, 95, 255, .35), var(--shadow-float);
+}
+
+/* ============================================================ Responsivo */
+@media (max-width: 560px) {
+  .sinallab { margin: 12px; padding: 14px; }
+  .sinallab__title { font-size: 18px; }
+  .speed-card__kmh { font-size: 28px; }
+  .trackline {
+    grid-template-columns: 12px 1fr auto;
+    grid-template-areas:
+      "dot name count"
+      "bar bar  bar";
+  }
+  .trackline__period { display: none; }
+  #btn-serial {
+    right: 12px;
+    bottom: 12px;
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+}
+
+/* ============================================================ Preferências do usuário */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

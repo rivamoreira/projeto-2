@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="AUTOSAR Classic  — via Web Serial">
+  <meta name="theme-color" content="#0b5fff">
+  <title>PROJETO 2 UTFPR-PG· AUTOSAR Classic</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- Shell: o main.js injeta header + grid + tracklines aqui dentro -->
+  <main class="sinallab" data-sinallab-root aria-label="Dashboard  AUTOSAR"></main>
+
+  <noscript>
+    <p style="padding:16px;font-family:system-ui;">
+      Este dashboard precisa de JavaScript ativado.
+    </p>
+  </noscript>
+
+  <!-- ============================================================
+       ORDEM AUTOSAR de carregamento:
+         1) Infraestrutura (VFB, RTE, BSW)
+         2) Application SWCs
+         3) View (HMI, fora da arquitetura)
+         4) Composição (main.js — "ECU Extract")
+       ============================================================ -->
+
+  <!-- 1) Infraestrutura -->
+  <script src="./swc/Port.js"      defer></script>
+  <script src="./rte/Rte.js"       defer></script>
+  <script src="./bsw/SerialBsw.js" defer></script>
+
+  <!-- 2) Application SWCs -->
+  <script src="./swc/SpeedSensorSWC.js"   defer></script>
+  <script src="./swc/TaskSchedulerSWC.js" defer></script>
+  <script src="./swc/LcdDisplaySWC.js"    defer></script>
+  <script src="./swc/LedActuatorSWC.js"   defer></script>
+
+  <!-- 3) HMI (não é SWC — assina portas, nunca é assinada) -->
+  <script src="./view/DashboardView.js" defer></script>
+
+  <!-- 4) Composição -->
+  <script src="./main.js" defer></script>
+
+</body>
+</html>
