@@ -1,4 +1,4 @@
-rojeto 2: Módulo de Painel de Instrumentos Automotivo com Trampoline RTOS
+Projeto 2: Módulo de Painel de Instrumentos Automotivo com Trampoline RTOS
 Visão geral
 O projeto cria um painel de instrumentos automotivo (o ICM, Instrument Cluster Module). Ele roda no Trampoline, um sistema operacional de tempo real aberto que segue o padrão OSEK/VDX e é compatível com a API do AUTOSAR OS 4.2. O painel recebe sinais do veículo, processa esses dados dentro de prazos rígidos e mostra as informações ao motorista. Tudo é feito com previsibilidade, segurança e evidências de verificação guardadas no GitHub.
 
