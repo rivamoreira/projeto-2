@@ -1,6 +1,5 @@
 /* ============================================================================
-   Rte.js — Runtime Environment (simulado)
-   feat(rte): Runtime Environment simulado
+   Rte.js — Runtime Environment (simulado)    feat(rte):  
 Fornece a API Rte_Write/Rte_Read para acesso a portas e o dispatcher de Runnables ativados por TimingEvent (periodMs). Substitui setInterval/requestAnimationFrame espalhados pelos SWCs por um único
 agendador central — equivalente ao RTE gerado por toolchain AUTOSAR.
    ============================================================================ */
