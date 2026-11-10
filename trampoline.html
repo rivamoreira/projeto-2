@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="AUTOSAR Classic  — via Web Serial">
   <meta name="theme-color" content="#0b5fff">
-  <title>PROJETO 2 UTFPR-PG· AUTOSAR Classic</title>
+  <title>PROJETO 2 UTFPR-PG· AUTOMOTIVE INSTRUMENT CLUSTER MODULE USING TRAMPOLINE RTOS - OSEK-VDX Classic</title>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -27,7 +27,6 @@
          4) Composição (main.js — "ECU Extract")
        ============================================================ -->
 
-  <!-- 1) Infraestrutura -->
   <script src="./swc/Port.js"      defer></script>
   <script src="./rte/Rte.js"       defer></script>
   <script src="./bsw/SerialBsw.js" defer></script>
@@ -42,7 +41,13 @@
   <script src="./view/DashboardView.js" defer></script>
 
   <!-- 4) Composição -->
+  <!-- 4) Composição -->
   <script src="./main.js" defer></script>
+  
+  <!-- 5) Ponte Web Serial (comunicação com Arduino) -->
+  <script src="./bridge.js" defer></script>
 
+ 
 </body>
 </html>
+ 
